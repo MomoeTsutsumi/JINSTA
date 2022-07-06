@@ -3,7 +3,7 @@
   <head>
     <title>JINSTA</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/vnd.microsoft.icon" href="https://image.flaticon.com/icons/png/512/25/25355.png">
+      <link rel="icon" href="favicon.ico">
     <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -21,10 +21,41 @@
       <div class="header-logo">
       </div>
       <ul class="header-menus">
+       <% @current_user = User.find_by(id: session[:user_id])  %>
+       <% if @current_user %>
+          <li>
+            <%= link_to(@current_user.name,"/users/#{@current_user.id}") %>
+          </li>
         <li>
         <%= link_to("ユーザー一覧","/users/index") %>
         </li>
+        <li>
+        <%= link_to("ログアウト","/logout",{method: "post"})%>
+        </li>
+        <li>
+        <%= link_to("写真投稿","/photos/new")%> 
+        </li>
+      
+       
+      <% else %>
+        <li>
+        <%= link_to("登録する","/signup") %>
+        </li>
+        <li>
+        <%= link_to("ログイン","/login") %>
+         </li>
+         <% end %>
       </ul>
+</header>
+
+
+  <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+    
     <%= yield %>
     
   </body>

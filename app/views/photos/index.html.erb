@@ -1,0 +1,11 @@
+
+
+<% @current_user.photos.each do |photo| %>
+<%= image_tag photo.image,  size: '470x470'%>
+<div>
+<p><%= photo.caption %></p>
+<%= time_ago_in_words(photo.created_at) %>
+</div>
+
+
+<% end %>
